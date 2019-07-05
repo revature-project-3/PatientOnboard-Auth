@@ -1,5 +1,7 @@
 package com.patientonboard.authenticationservice.model;
 
+import java.sql.Timestamp;
+
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -17,10 +19,10 @@ public class User {
 	private int userId;
 	
 	@Column(name="user_fname", nullable=false)
-	private String fName;
+	private String firstName;
 
 	@Column(name="user_lname", nullable=false)
-	private String lName;
+	private String lastName;
 	
 	@Column(name="user_role", nullable=false)
 	private String role;
@@ -34,6 +36,12 @@ public class User {
 	@Column(name="user_password", nullable=false)
 	private String password;
 	
+	@Column(name="user_occupation")
+	private String occupation;
+	
+	@Column(name="user_birthDate")
+	private Timestamp birthdate; 
+	
 	public User() {
 		super();
 	}
@@ -43,31 +51,74 @@ public class User {
 		this.username = username;
 		this.password = password;
 	}
-
-	public User(String fName, String lName, String role, String email, String username, String password) {
+	
+	public User(String firstName, String lastName, String role, String email, String username, String password) {
 		super();
-		this.fName = fName;
-		this.lName = lName;
+		this.firstName = firstName;
+		this.lastName = lastName;
+		this.role = role;
+		this.email = email;
 		this.username = username;
 		this.password = password;
 	}
-
-	public String getfName() {
-		return fName;
-	}
-
-	public void setfName(String fName) {
-		this.fName = fName;
-	}
-
-	public String getlName() {
-		return lName;
-	}
-
-	public void setlName(String lName) {
-		this.lName = lName;
-	}
 	
+	public User(int userId, String firstName, String lastName, String role, String email, String username,
+			String password, String occupation, Timestamp birthdate) {
+		super();
+		this.userId = userId;
+		this.firstName = firstName;
+		this.lastName = lastName;
+		this.role = role;
+		this.email = email;
+		this.username = username;
+		this.password = password;
+		this.occupation = occupation;
+		this.birthdate = birthdate;
+	}
+
+	public int getUserId() {
+		return userId;
+	}
+
+	public void setUserId(int userId) {
+		this.userId = userId;
+	}
+
+	public String getFirstName() {
+		return firstName;
+	}
+
+	public void setFirstName(String firstName) {
+		this.firstName = firstName;
+	}
+
+	public String getLastName() {
+		return lastName;
+	}
+
+	public void setLastName(String lastName) {
+		this.lastName = lastName;
+	}
+
+	public String getOccupation() {
+		return occupation;
+	}
+
+	public void setOccupation(String occupation) {
+		this.occupation = occupation;
+	}
+
+	public Timestamp getBirthdate() {
+		return birthdate;
+	}
+
+	public void setBirthdate(Timestamp birthdate) {
+		this.birthdate = birthdate;
+	}
+
+	
+	
+
 	public String getRole() {
 		return role;
 	}
@@ -102,9 +153,12 @@ public class User {
 
 	@Override
 	public String toString() {
-		return "Patient [fName=" + fName + ", lName=" + lName + ", username=" + username + ", password=" + password
-				+ "]";
+		return "User [userId=" + userId + ", firstName=" + firstName + ", lastName=" + lastName + ", role=" + role
+				+ ", email=" + email + ", username=" + username + ", password=" + password + ", occupation="
+				+ occupation + ", birthdate=" + birthdate + "]";
 	}
+
+	
 	
 	
 	
