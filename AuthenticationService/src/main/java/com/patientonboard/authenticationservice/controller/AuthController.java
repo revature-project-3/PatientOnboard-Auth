@@ -1,5 +1,8 @@
 package com.patientonboard.authenticationservice.controller;
 
+import javax.persistence.EntityManager;
+import javax.persistence.PersistenceContext;
+
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.CrossOrigin;
@@ -17,7 +20,8 @@ import com.patientonboard.authenticationservice.model.User;
 @RequestMapping(value="/auth")
 public class AuthController {
 
-	
+	@PersistenceContext
+	private EntityManager em;
 	private UserDao userDao;
 
 	public AuthController(UserDao userDao) {
@@ -25,8 +29,8 @@ public class AuthController {
 	}
 	//// Is set to return 
 	@PostMapping(value = "/authenticate")
-	public ResponseEntity<User> login(@RequestParam("username") String username,
-			@RequestParam("password") String password) {
+	public ResponseEntity<User> login(@RequestParam String username,
+			@RequestParam String password) {
 		System.out.println("In Auth, Username input: " + username);	
 		User user = new User("John","Jackson","jjack@gmail.com","Doctor","jjack","pass");
 		//User user = UserDao.getHash(username, password);
@@ -39,7 +43,7 @@ public class AuthController {
 
 	//// may need modifications
 	@PostMapping(value = "/registerUser")
-	public ResponseEntity<User> registerUser(@RequestParam("username") String usernameParam,
+	public ResponseEntity<User> register(@RequestParam("username") String usernameParam,
 			@RequestParam("password") String passwordParam, @RequestParam("firstname") String firstnameParam,
 			@RequestParam("lastname") String lastnameParam) {
 
@@ -56,7 +60,7 @@ public class AuthController {
 		newUser.setUsername(username);
 		newUser.setPassword(password);
 		System.out.println(newUser.toString());
-		userDao.insert(newUser);
+		//em.persist(newUser);
 		return new ResponseEntity<User>(newUser, HttpStatus.OK);
 		
 	}
