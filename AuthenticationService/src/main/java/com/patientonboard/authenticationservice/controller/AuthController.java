@@ -15,7 +15,7 @@ import com.patientonboard.authenticationservice.dao.UserDao;
 import com.patientonboard.authenticationservice.model.User;
 
 
-@CrossOrigin(origins = "https://localhost:4200")
+@CrossOrigin(origins = "*")
 @RestController
 @RequestMapping(value="/auth")
 public class AuthController {
