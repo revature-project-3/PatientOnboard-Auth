@@ -25,7 +25,7 @@ public class AuthController {
 	public AuthController(UserDao userDao) {
 		this.userDao = userDao;
 	}
-	
+	//// Is set to return 
 	@PostMapping(value = "/authenticate")
 	public ResponseEntity<User> login(@RequestParam("username") String username,
 			@RequestParam("password") String password) {
@@ -38,43 +38,25 @@ public class AuthController {
 		return new ResponseEntity<User>(user, HttpStatus.OK);
 	}
 	
-	@PostMapping(value="/updateUserProfile")
-	public User updateUser(@RequestParam("username") String usernameParam,
-			@RequestParam("password") String passwordParam, @RequestParam("email") String emailParam, 
-			@RequestParam("profession") String professionParam){
-				
-				System.out.println("in the update user method");
-				String username = usernameParam;
-				String password = passwordParam;
-				String email = emailParam;
-				String profession = professionParam;
 
-				User newUser = new User(username, password);
-				User updateUser = new User(username, password);
-				updateUser.setUsername(username);
-				updateUser.setPassword(password);
-				System.out.println(updateUser.toString());
-				userDao.update(updateUser);
-				
-				return updateUser;
-			}
-	//// 
+	//// may need modifications
 	@PostMapping(value = "/registerUser")
 	public ResponseEntity<User> registerUser(@RequestParam("username") String usernameParam,
 			@RequestParam("password") String passwordParam, @RequestParam("firstname") String firstnameParam,
-			@RequestParam("lastname") String lastnameParam, @RequestParam("email") String emailParam) {
+			@RequestParam("lastname") String lastnameParam) {
 
 		System.out.println("in the register user method");
 		String username = usernameParam;
 		String password = passwordParam;
 		String firstname = firstnameParam;
 		String lastname = lastnameParam;
-		String email = emailParam;		
+			
 
 		User newUser = new User(username, password);
-		newUser.setEmail(email);
 		newUser.setfName(firstname);
-		newUser.setlName(lastname);	
+		newUser.setlName(lastname);
+		newUser.setUsername(username);
+		newUser.setPassword(password);
 		System.out.println(newUser.toString());
 		userDao.insert(newUser);
 		return new ResponseEntity<User>(newUser, HttpStatus.OK);

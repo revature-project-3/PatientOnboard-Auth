@@ -29,7 +29,7 @@ public class UserDao {
 	public UserDao() {
 	}
 
-	@Autowired
+	
 	public UserDao(SessionFactory sesFact) {
 		this.sesFact = sesFact;
 	}
