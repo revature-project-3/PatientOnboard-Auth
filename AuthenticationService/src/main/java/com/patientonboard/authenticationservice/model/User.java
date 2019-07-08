@@ -42,15 +42,7 @@ public class User {
 	@Column(name="user_birthDate")
 	private Timestamp birthdate; 
 	
-	@Column(name="user_homePhone")
-	private String homePhone;
-	
-	@Column(name="mobilePhone")
-	private String mobilePhone; 
-	
-	@Column(name="address")
-	private String address;
-	
+	private String jwtToken;
 	public User() {
 		super();
 	}
@@ -85,11 +77,15 @@ public class User {
 		this.password = password;
 		this.occupation = occupation;
 		this.birthdate = birthdate;
-		this.homePhone = homePhone;
-		this.mobilePhone = mobilePhone;
-		this.address = address;
+	
+	}
+	public String getToken() {
+		return this.jwtToken;
 	}
 
+	public void setToken(String tok) {
+		this.jwtToken = tok;
+	}
 	public int getUserId() {
 		return userId;
 	}

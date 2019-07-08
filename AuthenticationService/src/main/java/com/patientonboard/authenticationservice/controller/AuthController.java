@@ -1,7 +1,5 @@
 package com.patientonboard.authenticationservice.controller;
 
-import java.util.Optional;
-
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 
