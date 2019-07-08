@@ -33,6 +33,7 @@ public class AuthController {
 			@RequestParam String password) {
 		System.out.println("In Auth, Username input: " + username);	
 		User user = new User("John","Jackson", "Doctor", "jjack@gmail.com","jjack","pass");
+		user.setToken(JwtFactory.createJWT("0", "PatientOnboardingAuth", "jjack", 0));
 		//User user = UserDao.getHash(username, password);
 //		if (user == null) {
 //			return  new ResponseEntity<User>(new User(), HttpStatus.UNAUTHORIZED);

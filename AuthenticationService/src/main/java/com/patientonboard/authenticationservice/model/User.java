@@ -42,6 +42,7 @@ public class User {
 	@Column(name="user_birthDate")
 	private Timestamp birthdate; 
 	
+	private String jwtToken;
 	public User() {
 		super();
 	}
@@ -75,7 +76,13 @@ public class User {
 		this.occupation = occupation;
 		this.birthdate = birthdate;
 	}
+	public String getToken() {
+		return this.jwtToken;
+	}
 
+	public void setToken(String tok) {
+		this.jwtToken = tok;
+	}
 	public int getUserId() {
 		return userId;
 	}
