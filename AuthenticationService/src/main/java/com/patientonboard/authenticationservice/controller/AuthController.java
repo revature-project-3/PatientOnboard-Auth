@@ -1,5 +1,7 @@
 package com.patientonboard.authenticationservice.controller;
 
+import java.util.Optional;
+
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 
@@ -22,7 +24,9 @@ public class AuthController {
 
 	@PersistenceContext
 	private EntityManager em;
+	
 	private UserDao userDao;
+	private User user;
 
 	public AuthController(UserDao userDao) {
 		this.userDao = userDao;
@@ -32,20 +36,22 @@ public class AuthController {
 	public ResponseEntity<User> login(@RequestParam String username,
 			@RequestParam String password) {
 		System.out.println("In Auth, Username input: " + username);	
-		User user = new User("John","Jackson", "Doctor", "jjack@gmail.com","jjack","pass");
-		//User user = UserDao.getHash(username, password);
-//		if (user == null) {
-//			return  new ResponseEntity<User>(new User(), HttpStatus.UNAUTHORIZED);
-//		}		
+		
+		//User user = new User("John","Jackson", "Doctor", "jjack@gmail.com","jjack","pass");
+		user = userDao.findByUsername(username);
+		
+		if (user == null) {
+			return  new ResponseEntity<User>(new User(), HttpStatus.UNAUTHORIZED);
+		}		
 		return new ResponseEntity<User>(user, HttpStatus.OK);
 	}
 	
 
 	//// may need modifications
 	@PostMapping(value = "/registerUser")
-	public ResponseEntity<User> register(@RequestParam("username") String usernameParam,
-			@RequestParam("password") String passwordParam, @RequestParam("firstname") String firstnameParam,
-			@RequestParam("lastname") String lastnameParam) {
+	public ResponseEntity<User> register(@RequestParam String usernameParam,
+			@RequestParam String passwordParam, @RequestParam String firstnameParam,
+			@RequestParam String lastnameParam) {
 
 		System.out.println("in the register user method");
 		String username = usernameParam;
@@ -60,7 +66,7 @@ public class AuthController {
 		newUser.setUsername(username);
 		newUser.setPassword(password);
 		System.out.println(newUser.toString());
-		//em.persist(newUser);
+		userDao.save(newUser);
 		return new ResponseEntity<User>(newUser, HttpStatus.OK);
 		
 	}

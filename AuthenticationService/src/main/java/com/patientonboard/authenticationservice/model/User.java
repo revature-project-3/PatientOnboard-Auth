@@ -42,6 +42,15 @@ public class User {
 	@Column(name="user_birthDate")
 	private Timestamp birthdate; 
 	
+	@Column(name="user_homePhone")
+	private String homePhone;
+	
+	@Column(name="mobilePhone")
+	private String mobilePhone; 
+	
+	@Column(name="address")
+	private String address;
+	
 	public User() {
 		super();
 	}
@@ -62,8 +71,10 @@ public class User {
 		this.password = password;
 	}
 	
+
 	public User(int userId, String firstName, String lastName, String role, String email, String username,
-			String password, String occupation, Timestamp birthdate) {
+			String password, String occupation, Timestamp birthdate, String homePhone, String mobilePhone,
+			String address) {
 		super();
 		this.userId = userId;
 		this.firstName = firstName;
@@ -74,6 +85,9 @@ public class User {
 		this.password = password;
 		this.occupation = occupation;
 		this.birthdate = birthdate;
+		this.homePhone = homePhone;
+		this.mobilePhone = mobilePhone;
+		this.address = address;
 	}
 
 	public int getUserId() {

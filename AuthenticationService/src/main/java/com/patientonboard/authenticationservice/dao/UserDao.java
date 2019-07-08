@@ -6,9 +6,6 @@ import com.patientonboard.authenticationservice.model.User;
 
 public interface UserDao extends CrudRepository<User, Integer> {
 	
-
-	
-	
-
+	User findByUsername(String username);
 
 }
