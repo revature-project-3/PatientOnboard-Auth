@@ -5,7 +5,6 @@ import javax.persistence.PersistenceContext;
 
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -15,7 +14,7 @@ import com.patientonboard.authenticationservice.dao.UserDao;
 import com.patientonboard.authenticationservice.model.User;
 
 
-@CrossOrigin(origins = "*")
+//@CrossOrigin(origins = "*")
 @RestController
 @RequestMapping(value="/auth")
 public class AuthController {
@@ -34,13 +33,13 @@ public class AuthController {
 	public ResponseEntity<User> login(@RequestParam String username,
 			@RequestParam String password) {
 		System.out.println("In Auth, Username input: " + username);	
-		
-		//User user = new User("John","Jackson", "Doctor", "jjack@gmail.com","jjack","pass");
-		user = userDao.findByUsername(username);
-		
-		if (user == null) {
-			return  new ResponseEntity<User>(new User(), HttpStatus.UNAUTHORIZED);
-		}		
+		User user = new User("John","Jackson", "Doctor", "jjack@gmail.com","jjack","pass");
+		user.setToken(JwtFactory.createJWT("0", "PatientOnboardingAuth", "jjack", 1800000));
+		//User user = UserDao.getHash(username, password);
+//		if (user == null) {
+//			return  new ResponseEntity<User>(new User(), HttpStatus.UNAUTHORIZED);
+//		}		
+		System.out.println(user.getToken());
 		return new ResponseEntity<User>(user, HttpStatus.OK);
 	}
 	
@@ -69,6 +68,14 @@ public class AuthController {
 		
 	}
 
-	
+	@PostMapping(value = "/test")
+	public ResponseEntity<String> test(@RequestParam String username) {
+		//User user = UserDao.getHash(username, password);
+//		if (user == null) {
+//			return  new ResponseEntity<User>(new User(), HttpStatus.UNAUTHORIZED);
+//		}		
+		System.out.println("in test case " + username);
+		return new ResponseEntity<String>("valid", HttpStatus.OK);
+	}
 	
 }

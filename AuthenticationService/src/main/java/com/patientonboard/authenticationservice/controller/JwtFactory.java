@@ -19,7 +19,7 @@ public class JwtFactory {
     // The secret key. This should be in a property file NOT under source
     // control and not hard coded in real life. We're putting it here for
     // simplicity.
-    private static String SECRET_KEY = ""; //Generate new SK
+    private static String SECRET_KEY = "t9nHY9pKwVikBibqgHu7OKic5CCQcM5qREDdJfrZ2niMcayrxwD2eo5yOMt104F_MwXJApjfwZgYTFOodCtMJFLEwtzQWVdPbbxT4SPSFvnp77JJLIttKZOheZkvOGM"; //Generate new SK
 
     //Sample method to construct a JWT
     public static String createJWT(String id, String issuer, String subject, long ttlMillis) {
@@ -33,7 +33,7 @@ public class JwtFactory {
         //We will sign our JWT with our ApiKey secret
         byte[] apiKeySecretBytes = DatatypeConverter.parseBase64Binary(SECRET_KEY);
         Key signingKey = new SecretKeySpec(apiKeySecretBytes, signatureAlgorithm.getJcaName());
-
+        
         //Let's set the JWT Claims
         JwtBuilder builder = Jwts.builder().setId(id)
                 .setIssuedAt(now)
@@ -55,10 +55,15 @@ public class JwtFactory {
     public static Claims decodeJWT(String jwt) {
 
         //This line will throw an exception if it is not a signed JWS (as expected)
+    	try {
         Claims claims = Jwts.parser()
                 .setSigningKey(DatatypeConverter.parseBase64Binary(SECRET_KEY))
                 .parseClaimsJws(jwt).getBody();
         return claims;
+    	} catch (Exception e) {
+    		System.out.println("************INVALID*************");
+    		return null;
+    	}
     }
 
 }
