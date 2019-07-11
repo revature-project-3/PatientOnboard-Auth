@@ -10,12 +10,12 @@ import javax.persistence.Id;
 import javax.persistence.Table;
 
 @Entity
-@Table(name="User")
+@Table(name="Users")
 public class User {
 	
 	@Id
 	@Column(name="user_id")
-	@GeneratedValue(strategy=GenerationType.AUTO)
+	@GeneratedValue(strategy=GenerationType.SEQUENCE)
 	private int userId;
 	
 	@Column(name="user_fname", nullable=false)
@@ -24,17 +24,17 @@ public class User {
 	@Column(name="user_lname", nullable=false)
 	private String lastName;
 	
-	@Column(name="user_role", nullable=false)
-	private String role;
-	
-	@Column(name="user_email", unique=true, nullable=false)
-	private String email;
-
 	@Column(name="user_username", unique=true, nullable=false)
 	private String username;
 	
 	@Column(name="user_password", nullable=false)
 	private String password;
+
+	@Column(name="user_role")
+	private String role;
+	
+	@Column(name="user_email", unique=true, nullable=false)
+	private String email;
 	
 	@Column(name="user_occupation")
 	private String occupation;

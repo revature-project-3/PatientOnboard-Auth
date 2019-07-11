@@ -30,11 +30,11 @@ public class AuthController {
 	}
 	//// Is set to return 
 	@PostMapping(value = "/authenticate")
-	public ResponseEntity<User> login(@RequestParam String username,
-			@RequestParam String password) {
+	public ResponseEntity<User> login(@RequestParam String username, @RequestParam String password) {
 		System.out.println("In Auth, Username input: " + username);	
 		User user = new User("John","Jackson", "Doctor", "jjack@gmail.com","jjack","pass");
-		user.setToken(JwtFactory.createJWT("0", "PatientOnboardingAuth", "jjack", 1800000));
+		user.setToken(JwtFactory.createJWT("0", "PatientOnboardingAuth", username, 1800000));
+		
 		//User user = UserDao.getHash(username, password);
 //		if (user == null) {
 //			return  new ResponseEntity<User>(new User(), HttpStatus.UNAUTHORIZED);
@@ -46,23 +46,28 @@ public class AuthController {
 
 	//// may need modifications
 	@PostMapping(value = "/registerUser")
-	public ResponseEntity<User> register(@RequestParam String usernameParam,
-			@RequestParam String passwordParam, @RequestParam String firstnameParam,
-			@RequestParam String lastnameParam) {
+	public ResponseEntity<User> register(@RequestParam("username") String username,
+			@RequestParam("password") String password, @RequestParam("firstname") String firstname,
+			@RequestParam("lastname") String lastname, @RequestParam("email") String email) {
+		
+		System.out.println("in registerUser" + username+" "+password+" "+ firstname);
 
 		System.out.println("in the register user method");
-		String username = usernameParam;
-		String password = passwordParam;
-		String firstname = firstnameParam;
-		String lastname = lastnameParam;
+		String userName = username;
+		String passWord = password;
+		String firstName = firstname;
+		String lastName = lastname;
+		String Email = email;
 			
 
-		User newUser = new User(username, password);
+		User newUser = new User();
 		newUser.setFirstName(firstname);
 		newUser.setLastName(lastname);
 		newUser.setUsername(username);
 		newUser.setPassword(password);
+		newUser.setEmail(email);
 		System.out.println(newUser.toString());
+		//this.em.persist(newUser);
 		userDao.save(newUser);
 		return new ResponseEntity<User>(newUser, HttpStatus.OK);
 		
