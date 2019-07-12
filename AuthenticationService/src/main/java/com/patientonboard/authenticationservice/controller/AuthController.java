@@ -1,5 +1,8 @@
 package com.patientonboard.authenticationservice.controller;
 
+import java.util.List;
+import java.util.Optional;
+
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 
@@ -23,6 +26,7 @@ public class AuthController {
 	private EntityManager em;
 	
 	private UserDao userDao;
+	private Optional<User> user1;
 	private User user;
 
 	public AuthController(UserDao userDao) {
@@ -30,9 +34,13 @@ public class AuthController {
 	}
 	//// Is set to return 
 	@PostMapping(value = "/authenticate")
-	public ResponseEntity<User> login(@RequestParam String username, @RequestParam String password) {
+	public ResponseEntity<User> login(@RequestParam("username") String username, @RequestParam("password") String password) {
 		System.out.println("In Auth, Username input: " + username);	
-		User user = new User("John","Jackson", "Doctor", "jjack@gmail.com","jjack","pass");
+		
+		user = userDao.findByUsername(username);
+		
+		System.out.println(user);
+		
 		user.setToken(JwtFactory.createJWT("0", "PatientOnboardingAuth", username, 1800000));
 		
 		//User user = UserDao.getHash(username, password);
