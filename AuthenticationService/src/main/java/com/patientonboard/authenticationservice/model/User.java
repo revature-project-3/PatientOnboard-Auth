@@ -19,10 +19,7 @@ public class User {
 	private int userId;
 	
 	@Column(name="user_fname", nullable=false)
-	private String firstName;
-
-	@Column(name="user_lname", nullable=false)
-	private String lastName;
+	private String fullName;
 	
 	@Column(name="user_username", unique=true, nullable=false)
 	private String username;
@@ -53,10 +50,9 @@ public class User {
 		this.password = password;
 	}
 	
-	public User(String firstName, String lastName, String role, String email, String username, String password) {
+	public User(String fullName, String role, String email, String username, String password) {
 		super();
-		this.firstName = firstName;
-		this.lastName = lastName;
+		this.fullName = fullName;
 		this.role = role;
 		this.email = email;
 		this.username = username;
@@ -64,13 +60,11 @@ public class User {
 	}
 	
 
-	public User(int userId, String firstName, String lastName, String role, String email, String username,
+	public User(int userId, String fullName, String role, String email, String username,
 			String password, String occupation, Timestamp birthdate, String homePhone, String mobilePhone,
 			String address) {
 		super();
 		this.userId = userId;
-		this.firstName = firstName;
-		this.lastName = lastName;
 		this.role = role;
 		this.email = email;
 		this.username = username;
@@ -94,20 +88,12 @@ public class User {
 		this.userId = userId;
 	}
 
-	public String getFirstName() {
-		return firstName;
+	public String getFullName() {
+		return fullName;
 	}
 
-	public void setFirstName(String firstName) {
-		this.firstName = firstName;
-	}
-
-	public String getLastName() {
-		return lastName;
-	}
-
-	public void setLastName(String lastName) {
-		this.lastName = lastName;
+	public void setFullName(String fullName) {
+		this.fullName = fullName;
 	}
 
 	public String getOccupation() {
@@ -163,7 +149,7 @@ public class User {
 
 	@Override
 	public String toString() {
-		return "User [userId=" + userId + ", firstName=" + firstName + ", lastName=" + lastName + ", role=" + role
+		return "User [userId=" + userId + ", fullName=" + fullName  + ", role=" + role
 				+ ", email=" + email + ", username=" + username + ", password=" + password + ", occupation="
 				+ occupation + ", birthdate=" + birthdate + "]";
 	}

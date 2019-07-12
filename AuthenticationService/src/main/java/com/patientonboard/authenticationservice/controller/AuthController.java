@@ -55,8 +55,8 @@ public class AuthController {
 	//// may need modifications
 	@PostMapping(value = "/registerUser")
 	public ResponseEntity<User> register(@RequestParam("username") String username,
-			@RequestParam("password") String password, @RequestParam("firstname") String firstname,
-			@RequestParam("lastname") String lastname, @RequestParam("email") String email) {
+			@RequestParam("password") String password, @RequestParam("fullname") String firstname,
+			@RequestParam("email") String email) {
 		
 		System.out.println("in registerUser" + username+" "+password+" "+ firstname);
 
@@ -64,13 +64,11 @@ public class AuthController {
 		String userName = username;
 		String passWord = password;
 		String firstName = firstname;
-		String lastName = lastname;
 		String Email = email;
 			
 
 		User newUser = new User();
-		newUser.setFirstName(firstname);
-		newUser.setLastName(lastname);
+		newUser.setFullName(firstname);
 		newUser.setUsername(username);
 		newUser.setPassword(password);
 		newUser.setEmail(email);
