@@ -41,7 +41,7 @@ public class AuthController {
 		
 		System.out.println(user);
 		
-		user.setToken(JwtFactory.createJWT("0", "PatientOnboardingAuth", username, 1800000));
+		user.setToken(JwtFactory.createJWT("0", "PatientOnboardingAuth", username, 3600000));
 		
 		//User user = UserDao.getHash(username, password);
 //		if (user == null) {
@@ -61,10 +61,7 @@ public class AuthController {
 		System.out.println("in registerUser" + username+" "+password+" "+ firstname);
 
 		System.out.println("in the register user method");
-		String userName = username;
-		String passWord = password;
-		String firstName = firstname;
-		String Email = email;
+
 			
 
 		User newUser = new User();
