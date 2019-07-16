@@ -38,7 +38,7 @@ public class AuthController {
 		System.out.println("In Auth, Username input: " + username);	
 		
 		user = userDao.findByUsername(username);
-		
+		if(user != null) {
 		System.out.println(user);
 		
 		user.setToken(JwtFactory.createJWT("0", "PatientOnboardingAuth", username, 3600000));
@@ -49,6 +49,10 @@ public class AuthController {
 //		}		
 		System.out.println(user.getToken());
 		return new ResponseEntity<User>(user, HttpStatus.OK);
+		}
+		else {
+			return new ResponseEntity<User>(HttpStatus.UNAUTHORIZED);
+		}
 	}
 	
 
